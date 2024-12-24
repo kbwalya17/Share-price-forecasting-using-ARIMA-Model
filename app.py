@@ -17,13 +17,13 @@ def forecast_stock(ticker):
     if stock_data.empty:
         raise ValueError("Invalid ticker symbol or no data available.")
 
-    # Ensure stock_data has proper columns and sort by Date
+    
     stock_data.reset_index(inplace=True)
     stock_data['Date'] = pd.to_datetime(stock_data['Date'])
     stock_data = stock_data[['Date', 'Close']].rename(columns={'Close': 'price'})
 
     # Prepare the ARIMA model
-    model = ARIMA(stock_data['price'], order=(2, 1, 2))  # Adjust ARIMA order as needed
+    model = ARIMA(stock_data['price'], order=(2, 1, 2))  
     model_fit = model.fit()
 
     # Forecast the next 30 days
@@ -34,7 +34,7 @@ def forecast_stock(ticker):
     forecast_prices = forecast.predicted_mean
     conf_int = forecast.conf_int()
 
-    # Generate Historical Stock Price Chart
+    
     plt.figure(figsize=(10, 6))
     plt.plot(stock_data['Date'], stock_data['price'], label="Historical Prices", color="blue")
     plt.title(f"{ticker} Stock Price History")
@@ -48,7 +48,7 @@ def forecast_stock(ticker):
     hist_plot_url = base64.b64encode(img_hist.getvalue()).decode()
     plt.close()
 
-    # Generate Forecast Chart
+    
     plt.figure(figsize=(10, 6))
     plt.plot(forecast_dates, forecast_prices, label="Forecasted Prices", color="red")
     plt.fill_between(forecast_dates, conf_int.iloc[:, 0], conf_int.iloc[:, 1], color='pink', alpha=0.3, label="Confidence Interval")
@@ -66,7 +66,7 @@ def forecast_stock(ticker):
     # ARIMA Model Summary
     model_results = model_fit.summary().tables[1].as_html()
 
-    # Prepare forecast data as a dictionary (date as key, forecasted price as value)
+   
     forecast_data = dict(zip(forecast_dates.strftime('%Y-%m-%d'), forecast_prices))
 
     return hist_plot_url, forecast_plot_url, forecast_data, model_results
