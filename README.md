@@ -14,13 +14,13 @@ This project uses the ARIMA (AutoRegressive Integrated Moving Average) model to 
 ### Technologies Used:
 - **Python**: Programming language used for data processing, analysis, and visualization.
 - **ARIMA**: Time series forecasting model used to predict stock prices.
-- **yfinance**: Python library to download historical stock price data.
+- **yfinance**: Python library to download historical stock price data in real-time.
 - **Matplotlib**: Library used for generating plots and visualizations.
 - **Flask**: Web framework to build a simple web interface for users to interact with the stock price forecasting model.
 
 ### How It Works:
 1. Enter a stock ticker (e.g., AAPL, TSLA) in the input form.
-2. The application fetches the historical stock data from Yahoo Finance.
+2. The application fetches the latest historical stock data from Yahoo Finance on demand, ensuring it is up-to-date in real-time.
 3. The ARIMA model is applied to forecast the stock prices for the next 30 days.
 4. The historical and forecasted stock prices are displayed as plots along with the forecast data and ARIMA model results.
 
